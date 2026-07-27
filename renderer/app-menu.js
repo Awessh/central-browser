@@ -15,6 +15,7 @@
 //   - cookies.js
 //   - settings-page.js
 //   - extensions-page.js
+//   - about-page.js
 // ============================================================
 
 // ============================================================
@@ -57,6 +58,7 @@ menuDropdown.addEventListener('click', (e) => {
     case 'print': api.print(); break;
     case 'settings': openSettingsTab(); break;
     case 'extensions': openExtensionsTab(); break;
+    case 'about': openAboutTab(); break;
     case 'applications': openToast(); break; 
     case 'quit': api.quitApp(); break;
   }

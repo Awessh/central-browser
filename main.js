@@ -2835,8 +2835,29 @@ ipcMain.handle('downloads:cancel', (_e, id) => {
 // Vérifie s'il existe une nouvelle version publiée, la télécharge en
 // arrière-plan, puis propose à l'utilisateur de redémarrer pour l'installer
 // (ou l'installe automatiquement à la prochaine fermeture s'il ignore).
+//
+// Statut courant partagé avec la page « À propos » (browser://about) :
+// permet à un onglet ouvert après coup de savoir immédiatement où en est
+// la vérification/le téléchargement, sans avoir à en relancer une.
+let updateStatus = { state: 'idle', version: null, info: null }; // idle | checking | available | not-available | downloading | downloaded | error | unsupported
+
+function broadcastUpdateStatus() {
+    BrowserWindow.getAllWindows().forEach((w) => {
+        if (!w.isDestroyed()) w.webContents.send('update:status', updateStatus);
+    });
+}
+
+function setUpdateStatus(state, extra = {}) {
+    updateStatus = { state, version: null, info: null, ...extra };
+    broadcastUpdateStatus();
+}
+
 function setupAutoUpdater() {
-    if (!autoUpdater || !app.isPackaged) return; // pas de mise à jour en dev (npm start)
+    if (!autoUpdater || !app.isPackaged) {
+        // pas de mise à jour en dev (npm start) ni si electron-updater est absent
+        setUpdateStatus('unsupported');
+        return;
+    }
 
     // Dépôt de mise à jour PRIVÉ : l'API GitHub exige une authentification
     // pour lister/télécharger les Releases d'un dépôt privé. Ce jeton est
@@ -2856,7 +2877,28 @@ function setupAutoUpdater() {
     autoUpdater.autoDownload = true;
     autoUpdater.autoInstallOnAppQuit = true;
 
+    autoUpdater.on('checking-for-update', () => {
+        setUpdateStatus('checking');
+    });
+
+    autoUpdater.on('update-available', (info) => {
+        setUpdateStatus('downloading', { version: info?.version || null });
+    });
+
+    autoUpdater.on('update-not-available', (info) => {
+        setUpdateStatus('not-available', { version: info?.version || app.getVersion() });
+    });
+
+    autoUpdater.on('download-progress', (progress) => {
+        setUpdateStatus('downloading', {
+            version: updateStatus.version,
+            info: { percent: Math.round(progress?.percent || 0) },
+        });
+    });
+
     autoUpdater.on('update-downloaded', (info) => {
+        setUpdateStatus('downloaded', { version: info?.version || null });
+
         dialog.showMessageBox({
             type: 'info',
             title: 'Mise à jour disponible',
@@ -2872,12 +2914,44 @@ function setupAutoUpdater() {
 
     autoUpdater.on('error', (err) => {
         console.error('Mise à jour automatique : erreur ->', err?.message || err);
+        setUpdateStatus('error', { info: { message: String((err && err.message) || err) } });
     });
 
     autoUpdater.checkForUpdates().catch((err) => {
         console.error('Mise à jour automatique : vérification impossible ->', err?.message || err);
+        setUpdateStatus('error', { info: { message: String((err && err.message) || err) } });
     });
 }
+
+// ------------------------------------------------------------
+// IPC — page « À propos » (browser://about)
+// ------------------------------------------------------------
+ipcMain.handle('app:get-version', () => app.getVersion());
+
+ipcMain.handle('app:get-update-status', () => updateStatus);
+
+// Vérification manuelle déclenchée depuis la page « À propos ». Les
+// résultats arrivent de façon asynchrone via l'évènement 'update:status'
+// (déjà écouté par la page) ; cet appel se contente de lancer la recherche.
+ipcMain.handle('app:check-for-updates', () => {
+    if (!autoUpdater || !app.isPackaged) {
+        setUpdateStatus('unsupported');
+        return updateStatus;
+    }
+    setUpdateStatus('checking');
+    autoUpdater.checkForUpdates().catch((err) => {
+        console.error('Mise à jour manuelle : vérification impossible ->', err?.message || err);
+        setUpdateStatus('error', { info: { message: String((err && err.message) || err) } });
+    });
+    return updateStatus;
+});
+
+// Lance l'installation d'une mise à jour déjà téléchargée (redémarre l'app).
+ipcMain.handle('app:install-update', () => {
+    if (!autoUpdater || updateStatus.state !== 'downloaded') return false;
+    autoUpdater.quitAndInstall();
+    return true;
+});
 
 app.whenReady().then(() => {
   if (store.settings.sync.enabled && store.settings.sync.wrappedKey) startAutoSync();
