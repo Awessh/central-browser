@@ -59,10 +59,12 @@ try {
 // installe les nouvelles versions publiées sur GitHub Releases. Absent en
 // développement (`npm start`) : on ne l'active que sur une build packagée.
 let autoUpdater = null;
+let autoUpdaterLoadError = null;
 try {
   autoUpdater = require('electron-updater').autoUpdater;
-} catch {
-  autoUpdater = null; // module absent : les mises à jour resteront manuelles
+} catch (err) {
+  autoUpdater = null;
+  autoUpdaterLoadError = err; // on log plus bas, une fois que `app` est prêt (voir setupAutoUpdater)
 }
 
 // Module Transfert de fichiers (module séparé, comme players/ et pdf-manager/) —
@@ -2853,9 +2855,26 @@ function setUpdateStatus(state, extra = {}) {
 }
 
 function setupAutoUpdater() {
-    if (!autoUpdater || !app.isPackaged) {
-        // pas de mise à jour en dev (npm start) ni si electron-updater est absent
-        setUpdateStatus('unsupported');
+    if (!app.isPackaged) {
+        // Mode développement (npm start) : comportement normal, rien d'anormal.
+        setUpdateStatus('unsupported', { info: { reason: 'not-packaged' } });
+        return;
+    }
+
+    if (!autoUpdater) {
+        // Build packagée mais electron-updater n'a pas pu être chargé : ce
+        // n'est PAS un cas normal, ça indique un problème d'empaquetage
+        // (module absent de "dependencies", non inclus dans l'installeur...).
+        console.error(
+            'electron-updater est introuvable dans une build packagée -> '
+            + "les mises à jour automatiques resteront indisponibles. "
+            + 'Vérifie que "electron-updater" est bien dans "dependencies" (pas "devDependencies") '
+            + 'du package.json et qu\'il a été inclus par electron-builder.',
+            autoUpdaterLoadError?.message || autoUpdaterLoadError,
+        );
+        setUpdateStatus('unsupported', {
+            info: { reason: 'module-missing', message: String(autoUpdaterLoadError?.message || autoUpdaterLoadError || '') },
+        });
         return;
     }
 
@@ -2934,8 +2953,14 @@ ipcMain.handle('app:get-update-status', () => updateStatus);
 // résultats arrivent de façon asynchrone via l'évènement 'update:status'
 // (déjà écouté par la page) ; cet appel se contente de lancer la recherche.
 ipcMain.handle('app:check-for-updates', () => {
-    if (!autoUpdater || !app.isPackaged) {
-        setUpdateStatus('unsupported');
+    if (!app.isPackaged) {
+        setUpdateStatus('unsupported', { info: { reason: 'not-packaged' } });
+        return updateStatus;
+    }
+    if (!autoUpdater) {
+        setUpdateStatus('unsupported', {
+            info: { reason: 'module-missing', message: String(autoUpdaterLoadError?.message || autoUpdaterLoadError || '') },
+        });
         return updateStatus;
     }
     setUpdateStatus('checking');
