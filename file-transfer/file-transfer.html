@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transfert de fichiers</title>
+    <link rel="stylesheet" href="file-transfer.css">
+    <link rel="stylesheet" href="../fontawesome/css/all.min.css">
+</head>
+
+<body>
+
+    <div id="app" ondragover="event.preventDefault()">
+
+        <!-- ---------- Barre latérale ---------- -->
+        <div id="sidebar">
+
+            <div id="brand">
+                <i class="fa-solid fa-share-nodes"></i>
+                <span>Transfert de fichiers</span>
+            </div>
+
+            <div id="self-card">
+                <div id="self-avatar"><i class="fa-solid fa-desktop"></i></div>
+                <div id="self-info">
+                    <div id="self-name-row">
+                        <span id="self-name">Cet appareil</span>
+                        <button id="self-name-edit-btn" title="Renommer cet appareil"><i class="fa-solid fa-pen"></i></button>
+                    </div>
+                    <div id="self-status"><span class="dot dot-on"></span> Détectable sur le réseau</div>
+                </div>
+            </div>
+
+            <button id="send-files-btn" class="primary-btn">
+                <i class="fa-solid fa-paper-plane"></i> Envoyer des fichiers
+            </button>
+
+            <nav id="tab-nav">
+                <button class="tab-btn active" data-tab="devices">
+                    <i class="fa-solid fa-wifi"></i> Appareils
+                </button>
+                <button class="tab-btn" data-tab="transfers">
+                    <i class="fa-solid fa-arrow-up-arrow-down"></i> Transferts
+                    <span id="transfers-badge" class="badge hidden">0</span>
+                </button>
+                <button class="tab-btn" data-tab="history">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Historique
+                </button>
+                <button class="tab-btn" data-tab="settings">
+                    <i class="fa-solid fa-gear"></i> Paramètres
+                </button>
+            </nav>
+
+            <div id="sidebar-footer">
+                <i class="fa-solid fa-circle-info"></i>
+                Les deux appareils doivent être connectés au même réseau Wi-Fi. Aucune donnée ne passe par Internet.
+            </div>
+        </div>
+
+        <!-- ---------- Contenu principal ---------- -->
+        <div id="main">
+
+            <!-- Onglet Appareils -->
+            <section id="tab-devices" class="tab-panel active">
+                <div class="panel-header">
+                    <h2>Appareils sur le réseau</h2>
+                    <button id="manual-connect-btn" class="ghost-btn"><i class="fa-solid fa-network-wired"></i> Connexion manuelle (IP)</button>
+                </div>
+                <div id="devices-empty" class="empty-state hidden">
+                    <i class="fa-solid fa-satellite-dish"></i>
+                    <p>Recherche d'appareils sur le réseau…</p>
+                    <p class="empty-sub">Ouvre « Transfert de fichiers » sur l'autre appareil, connecté au même Wi-Fi.</p>
+                </div>
+                <div id="devices-list" class="devices-grid"></div>
+            </section>
+
+            <!-- Onglet Transferts en cours -->
+            <section id="tab-transfers" class="tab-panel">
+                <div class="panel-header"><h2>Transferts en cours</h2></div>
+                <div id="transfers-empty" class="empty-state">
+                    <i class="fa-solid fa-inbox"></i>
+                    <p>Aucun transfert en cours</p>
+                </div>
+                <div id="transfers-list"></div>
+            </section>
+
+            <!-- Onglet Historique -->
+            <section id="tab-history" class="tab-panel">
+                <div class="panel-header">
+                    <h2>Historique</h2>
+                    <button id="clear-history-btn" class="ghost-btn"><i class="fa-solid fa-trash"></i> Effacer l'historique</button>
+                </div>
+                <div id="history-empty" class="empty-state">
+                    <i class="fa-solid fa-box-open"></i>
+                    <p>Aucun transfert pour le moment</p>
+                </div>
+                <div id="history-list"></div>
+            </section>
+
+            <!-- Onglet Paramètres -->
+            <section id="tab-settings" class="tab-panel">
+                <div class="panel-header"><h2>Paramètres</h2></div>
+
+                <div class="settings-group">
+                    <label>Nom de cet appareil</label>
+                    <div class="settings-row">
+                        <input id="settings-device-name" type="text" maxlength="60" placeholder="Nom affiché aux autres appareils">
+                        <button id="settings-save-name-btn" class="secondary-btn">Enregistrer</button>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <label>Dossier de réception</label>
+                    <div class="settings-row">
+                        <input id="settings-receive-dir" type="text" readonly>
+                        <button id="settings-choose-dir-btn" class="secondary-btn">Modifier</button>
+                        <button id="settings-open-dir-btn" class="ghost-btn" title="Ouvrir le dossier"><i class="fa-solid fa-folder-open"></i></button>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <label class="switch-row">
+                        <span>Activer le transfert de fichiers (découverte réseau)</span>
+                        <span class="switch"><input id="settings-enabled-toggle" type="checkbox"><span class="slider"></span></span>
+                    </label>
+                </div>
+
+                <div class="settings-group">
+                    <label>Appareils de confiance (appairés)</label>
+                    <div id="trusted-empty" class="empty-state small hidden">
+                        <p>Aucun appareil appairé pour l'instant.</p>
+                    </div>
+                    <div id="trusted-list"></div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- ---------- Overlays / modales ---------- -->
+
+    <!-- Choix de l'appareil destinataire après sélection de fichiers -->
+    <div id="picker-overlay" class="overlay hidden">
+        <div class="modal">
+            <div class="modal-header"><i class="fa-solid fa-paper-plane"></i> Envoyer à…</div>
+            <div class="modal-sub" id="picker-summary"></div>
+            <div id="picker-devices" class="picker-devices"></div>
+            <div class="modal-actions"><button class="ghost-btn" data-close="picker-overlay">Annuler</button></div>
+        </div>
+    </div>
+
+    <!-- Appairage sortant (en attente) -->
+    <div id="pair-outgoing-overlay" class="overlay hidden">
+        <div class="modal">
+            <div class="modal-header"><i class="fa-solid fa-link"></i> Appairage en cours…</div>
+            <div class="modal-sub">En attente de confirmation sur <b id="pair-outgoing-name"></b></div>
+            <div class="pair-code" id="pair-outgoing-code"></div>
+            <div class="modal-sub small">Vérifie que ce code s'affiche bien sur l'autre appareil.</div>
+            <div class="modal-actions"><button class="ghost-btn" data-close="pair-outgoing-overlay">Annuler</button></div>
+        </div>
+    </div>
+
+    <!-- Appairage entrant -->
+    <div id="pair-incoming-overlay" class="overlay hidden">
+        <div class="modal">
+            <div class="modal-header"><i class="fa-solid fa-link"></i> Demande d'appairage</div>
+            <div class="modal-sub"><b id="pair-incoming-name"></b> souhaite s'appairer avec cet appareil</div>
+            <div class="pair-code" id="pair-incoming-code"></div>
+            <div class="modal-actions">
+                <button class="ghost-btn" id="pair-incoming-decline">Refuser</button>
+                <button class="primary-btn" id="pair-incoming-accept">Accepter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demande de transfert entrante -->
+    <div id="transfer-incoming-overlay" class="overlay hidden">
+        <div class="modal">
+            <div class="modal-header"><i class="fa-solid fa-download"></i> Fichiers entrants</div>
+            <div class="modal-sub"><b id="transfer-incoming-name"></b> souhaite t'envoyer <span id="transfer-incoming-count"></span></div>
+            <div id="transfer-incoming-files" class="file-list"></div>
+            <div class="modal-total" id="transfer-incoming-total"></div>
+            <label class="checkbox-row">
+                <input type="checkbox" id="transfer-incoming-always">
+                Toujours accepter automatiquement les fichiers de cet appareil
+            </label>
+            <div class="modal-actions">
+                <button class="ghost-btn" id="transfer-incoming-decline">Refuser</button>
+                <button class="primary-btn" id="transfer-incoming-accept">Accepter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connexion manuelle -->
+    <div id="manual-overlay" class="overlay hidden">
+        <div class="modal">
+            <div class="modal-header"><i class="fa-solid fa-network-wired"></i> Connexion manuelle</div>
+            <div class="modal-sub small">À utiliser si l'appareil n'apparaît pas automatiquement (réseau qui bloque la découverte).</div>
+            <div class="settings-row">
+                <input id="manual-ip" type="text" placeholder="Adresse IP (ex: 192.168.1.24)">
+                <input id="manual-port" type="text" placeholder="Port" style="max-width:100px">
+            </div>
+            <div id="manual-error" class="error-text hidden"></div>
+            <div class="modal-actions">
+                <button class="ghost-btn" data-close="manual-overlay">Annuler</button>
+                <button class="primary-btn" id="manual-connect-confirm-btn">Se connecter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zone de dépôt (drag & drop global) -->
+    <div id="drop-overlay" class="overlay hidden">
+        <div class="drop-hint"><i class="fa-solid fa-cloud-arrow-up"></i><p>Dépose les fichiers pour choisir un destinataire</p></div>
+    </div>
+
+    <!-- Notifications toast -->
+    <div id="toast-stack"></div>
+
+    <script src="file-transfer.js"></script>
+</body>
+</html>

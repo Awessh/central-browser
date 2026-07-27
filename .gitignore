@@ -1,0 +1,11 @@
+node_modules/
+dist/
+out/
+.env
+*.log
+npm-debug.log*
+
+# Fichiers spécifiques à l'OS / éditeur
+.DS_Store
+Thumbs.db
+.vscode/

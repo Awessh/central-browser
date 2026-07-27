@@ -1,0 +1,175 @@
+/* ==========================================================================
+   PRELOADER — Central Browser
+   Écran affiché au démarrage, avant l'onglet d'accueil.
+   Timeline (pilotée en parallèle par preloader.js pour le retrait final) :
+     0ms      -> le globe apparaît en zoom (effet ressort), pendant 1s
+     1000ms   -> le "C" se dessine (balayage + fondu), pendant 1s
+     2000ms   -> les lettres de "CENTRAL" puis "BROWSER" apparaissent une à une
+     2750ms   -> les deux traits se déploient
+     ~3200ms  -> fin de l'animation d'entrée
+     +2000ms  -> le preloader s'efface pour révéler l'onglet d'accueil
+   ========================================================================== */
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  /* Fond bleu-noir très foncé, légèrement dégradé pour donner du relief */
+  background: #020512; 
+
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Classe ajoutée par preloader.js une fois le délai écoulé */
+#preloader.preloader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#preloader-logo-wrap {
+  position: relative;
+  width: min(46vmin, 360px);
+  aspect-ratio: 902.97 / 841.89;
+}
+
+#preloader-logo {
+  width: 80%;
+  height: 80%;
+  overflow: visible;
+}
+
+/* Léger halo lumineux derrière le logo, purement cosmétique */
+#preloader-logo-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(19, 127, 247, 0.28) 0%, rgba(19, 127, 247, 0) 70%);
+  opacity: 0;
+  animation: preloader-halo 1.6s ease-out forwards;
+  animation-delay: 0.05s;
+  z-index: -1;
+}
+
+@keyframes preloader-halo {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { opacity: 1; }
+  100% { opacity: 0.55; transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------
+   1) Le globe : zoom avec léger effet ressort ("pop")
+   -------------------------------------------------------------------- */
+#preloader #Globe_1_ {
+  transform-origin: 447px 282px;
+  opacity: 0;
+  animation: preloader-globe-zoom 1s cubic-bezier(0.22, 1.4, 0.36, 1) forwards;
+  animation-delay: 0s;
+}
+
+@keyframes preloader-globe-zoom {
+  0%   { opacity: 0; transform: scale(0.15); }
+  55%  { opacity: 1; transform: scale(1.12); }
+  75%  { transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------
+   2) Le "C" : effet de dessin (balayage progressif de gauche à droite)
+   combiné à un léger fondu pour renforcer la lecture du tracé.
+   -------------------------------------------------------------------- */
+#preloader #C {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  -webkit-clip-path: inset(0 100% 0 0);
+  animation:
+    preloader-c-fade 0.35s ease-out forwards,
+    preloader-c-draw 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 1s, 1s;
+}
+
+@keyframes preloader-c-fade {
+  to { opacity: 1; }
+}
+
+@keyframes preloader-c-draw {
+  from { clip-path: inset(0 100% 0 0); -webkit-clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0);   -webkit-clip-path: inset(0 0 0 0); }
+}
+
+/* --------------------------------------------------------------------
+   3) Le texte "CENTRAL BROWSER" : maintenant vectorisé (chaque lettre
+   est un <path> indépendant, plus de dépendance à une police système).
+   Chaque lettre apparaît en fondu + léger glissement vers le haut,
+   avec un décalage progressif pour un effet de cascade "lettre par
+   lettre". Le mot BROWSER démarre un peu avant la fin de CENTRAL pour
+   un enchaînement fluide.
+   -------------------------------------------------------------------- */
+#preloader #Texte path {
+  opacity: 0;
+  transform: translateY(18px);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: preloader-letter-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+#preloader .word-central path:nth-child(1) { animation-delay: 2s; }
+#preloader .word-central path:nth-child(2) { animation-delay: 2.045s; }
+#preloader .word-central path:nth-child(3) { animation-delay: 2.09s; }
+#preloader .word-central path:nth-child(4) { animation-delay: 2.135s; }
+#preloader .word-central path:nth-child(5) { animation-delay: 2.18s; }
+#preloader .word-central path:nth-child(6) { animation-delay: 2.225s; }
+#preloader .word-central path:nth-child(7) { animation-delay: 2.27s; }
+
+#preloader .word-browser path:nth-child(1) { animation-delay: 2.2s; }
+#preloader .word-browser path:nth-child(2) { animation-delay: 2.245s; }
+#preloader .word-browser path:nth-child(3) { animation-delay: 2.29s; }
+#preloader .word-browser path:nth-child(4) { animation-delay: 2.335s; }
+#preloader .word-browser path:nth-child(5) { animation-delay: 2.38s; }
+#preloader .word-browser path:nth-child(6) { animation-delay: 2.425s; }
+#preloader .word-browser path:nth-child(7) { animation-delay: 2.47s; }
+
+@keyframes preloader-letter-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------
+   4) Les deux traits sous le texte : déploiement depuis le centre,
+   une fois toutes les lettres arrivées.
+   -------------------------------------------------------------------- */
+#preloader #Trait path {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: preloader-trait-in 0.45s ease-out forwards;
+  animation-delay: 2.75s;
+}
+
+@keyframes preloader-trait-in {
+  0%   { opacity: 0; transform: scaleX(0); }
+  100% { opacity: 1; transform: scaleX(1); }
+}
+
+/* Respecte les préférences de mouvement réduit : animation quasi instantanée */
+@media (prefers-reduced-motion: reduce) {
+  #preloader-logo-wrap::before,
+  #preloader #Globe_1_,
+  #preloader #C,
+  #preloader #Texte path,
+  #preloader #Trait path {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+  }
+  #preloader {
+    transition-duration: 0.01ms !important;
+  }
+}

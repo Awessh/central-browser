@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+      <meta charset="UTF-8" />
+      <title>Simple Browser</title>
+      <link rel="stylesheet" href="styles.css" />
+      <link rel="stylesheet" href="styles-extra.css" />
+      <link rel="stylesheet" href="preloader.css" />
+      <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  </head>
+  <body>
+      <!-- ===================================================================
+           PRELOADER — Central Browser
+           Écran de démarrage affiché avant l'onglet d'accueil : le globe
+           apparaît en zoom, le "C" se dessine, puis le texte "CENTRAL
+           BROWSER" s'anime. Piloté par preloader.css (keyframes) et
+           preloader.js (minuterie + retrait du DOM une fois terminé).
+           =================================================================== -->
+      <div id="preloader" aria-hidden="true">
+        <div id="preloader-logo-wrap">
+          <svg id="preloader-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 903 841.9">
+          <style type="text/css">
+          	.st0{clip-path:url(#preloadSVGID_2_);}
+          	.st1{fill:url(#preloadSVGID_3_);}
+          	.st2{fill:url(#preloadSVGID_4_);}
+          	.st3{fill:url(#preloadSVGID_5_);}
+          	.st4{fill:url(#preloadSVGID_6_);}
+          	.st5{fill:url(#preloadSVGID_7_);}
+          	.st6{enable-background:new    ;}
+          	.st7{fill:#FFFFFF;}
+          	.st8{fill:#137FF7;}
+          </style>
+          <g id="Globe_1_">
+          	<g id="Globe">
+          		<g>
+          		<defs>
+          				<circle id="preloadSVGID_1_" cx="447.4" cy="281.9" r="96.7"/>
+          		</defs>
+          		<clipPath id="preloadSVGID_2_">
+          			<use xlink:href="#preloadSVGID_1_"  style="overflow:visible;"/>
+          		</clipPath>
+          			<g transform="matrix(1 0 0 1 0 1.525879e-05)" class="st0">
+			
+          					<image style="overflow:visible;enable-background:new    ;" width="345" height="333" xlink:href="medias/images/553732AA.jpg"  transform="matrix(0.6391 0 0 0.6391 338.9677 175.4538)">
+          			</image>
+          		</g>
+          	</g>
+          </g>
+          </g>
+          <g id="C">
+	
+          		<linearGradient id="preloadSVGID_3_" gradientUnits="userSpaceOnUse" x1="211.91" y1="642.4698" x2="671.49" y2="642.4698" gradientTransform="matrix(1 0 0 -1 0 841.8898)">
+          		<stop  offset="3.409785e-07" style="stop-color:#1AE4FE"/>
+          		<stop  offset="0.4287" style="stop-color:#1AE2FE"/>
+          		<stop  offset="0.594" style="stop-color:#19DBFD"/>
+          		<stop  offset="0.7139" style="stop-color:#19CFFD"/>
+          		<stop  offset="0.8117" style="stop-color:#17BEFB"/>
+          		<stop  offset="0.8962" style="stop-color:#16A7FA"/>
+          		<stop  offset="0.9701" style="stop-color:#148CF8"/>
+          		<stop  offset="1" style="stop-color:#137FF7"/>
+          	</linearGradient>
+          	<path class="st1" d="M452.2,37.1c-34.6,0-67.5,7.3-97.3,20.5c-84.2,37.3-143,121.7-143,219.8c0,29.6,5.4,58,15.2,84.2c0,0,0,0,0,0
+          		c0,0,0,0,0,0c-2.9-15-4.7-31.6-5.3-49.8c-0.3-8.5,0.1-16.9,1-25.1c0-0.1,0-0.1,0-0.2c3.8-76.3,44-141.6,100.9-176.3
+          		c27.8-17,59.6-26.6,93-26.6c80.5,0,149.5,48.1,178.9,129.7l75.8-34.4C633.9,95.4,549.8,37.1,452.2,37.1z"/>
+	
+          		<linearGradient id="preloadSVGID_4_" gradientUnits="userSpaceOnUse" x1="222.86" y1="656.5948" x2="595.7" y2="656.5948" gradientTransform="matrix(1 0 0 -1 0 841.8898)">
+          		<stop  offset="0" style="stop-color:#137FF7"/>
+          		<stop  offset="8.500000e-02" style="stop-color:#1384F7"/>
+          		<stop  offset="0.1888" style="stop-color:#1493F8"/>
+          		<stop  offset="0.3024" style="stop-color:#16ACFA"/>
+          		<stop  offset="0.4222" style="stop-color:#18CEFC"/>
+          		<stop  offset="0.4872" style="stop-color:#1AE4FE"/>
+          		<stop  offset="0.5042" style="stop-color:#1ADDFE"/>
+          		<stop  offset="0.5978" style="stop-color:#17BBFB"/>
+          		<stop  offset="0.6936" style="stop-color:#15A1F9"/>
+          		<stop  offset="0.7912" style="stop-color:#148EF8"/>
+          		<stop  offset="0.8918" style="stop-color:#1383F7"/>
+          		<stop  offset="1" style="stop-color:#137FF7"/>
+          	</linearGradient>
+          	<path class="st2" d="M416.8,83.8c-33.4,0-65.2,9.6-93,26.6c-56.9,34.7-97.1,100-100.9,176.3c0,0.1,0,0.1,0,0.2
+          		c6.4-56.5,40-104.7,86.7-131.8c25.8-15,55.7-23.6,87.1-23.6c37.4,0,68.3,8.1,92.5,23.7c33,12.9,59.8,41.6,75.6,72.3l30.9-14
+          		C566.3,131.9,497.2,83.8,416.8,83.8z"/>
+	
+          		<linearGradient id="preloadSVGID_5_" gradientUnits="userSpaceOnUse" x1="222.5814" y1="517.2998" x2="664.6454" y2="517.2998" gradientTransform="matrix(1 0 0 -1 0 841.8898)">
+          		<stop  offset="0" style="stop-color:#0A2859"/>
+          		<stop  offset="0.2217" style="stop-color:#0A2A5C"/>
+          		<stop  offset="0.3788" style="stop-color:#0B3265"/>
+          		<stop  offset="0.5159" style="stop-color:#0D3E75"/>
+          		<stop  offset="0.6416" style="stop-color:#0F508B"/>
+          		<stop  offset="0.7594" style="stop-color:#1267A7"/>
+          		<stop  offset="0.8715" style="stop-color:#1684CA"/>
+          		<stop  offset="0.9771" style="stop-color:#1AA5F3"/>
+          		<stop  offset="1" style="stop-color:#1BADFD"/>
+          	</linearGradient>
+          	<path class="st3" d="M664.6,390C627.3,460.2,556.2,509.7,473,516.8c-6.9,0.6-13.8,0.9-20.8,0.9c-45.5,0-88.1-12.7-124.4-34.7
+          		c0,0,0,0-0.1,0c-44.8-27.2-80-68.6-99.4-118c0,0,0-0.1,0-0.1c-3.1-18.1-5.1-38-5.6-59.8c-0.2-6.1-0.1-12.1,0.2-18.1v-0.1
+          		c6.4-56,46.8-110.1,93-137.5c0.5-0.3,1,0.1,0.9,0.6v0c-0.1,0.5,0.4,0.9,0.9,0.7c23.9-12.3,50.8-19.2,79.1-19.2
+          		c18.7,0,35.8,2,51.2,6c12.7,3.3,24.2,7.8,34.6,13.6c-10-2.4-20.5-3.8-31.2-3.8c-72,0-130.5,58.4-130.5,130.5
+          		c0,32.7,12,62.6,31.9,85.5c29.1,55.6,73,89.2,136.5,93.1c0.9,0,1.7,0.1,2.5,0.1h0c4.9,0.2,9.9,0.4,15,0.4c19.2,0,39.1-3.5,58.8-9.9
+          		c35.1-11.4,69.5-31.9,98-57.8C664.1,388.8,664.9,389.4,664.6,390z"/>
+	
+          		<linearGradient id="preloadSVGID_6_" gradientUnits="userSpaceOnUse" x1="347.64" y1="444.7948" x2="666.34" y2="444.7948" gradientTransform="matrix(1 0 0 -1 0 841.8898)">
+          		<stop  offset="0" style="stop-color:#137FF7"/>
+          		<stop  offset="0.2655" style="stop-color:#1382F7"/>
+          		<stop  offset="0.4536" style="stop-color:#148BF8"/>
+          		<stop  offset="0.6177" style="stop-color:#159BF9"/>
+          		<stop  offset="0.7681" style="stop-color:#16B1FA"/>
+          		<stop  offset="0.9079" style="stop-color:#18CDFC"/>
+          		<stop  offset="1" style="stop-color:#1AE4FE"/>
+          	</linearGradient>
+          	<path class="st4" d="M605.5,356.7l-39.6-19.4c-5.5,10.6-12.4,20.4-20.5,29l0,0l0,0c-23.4,25-56.5,40.6-93.2,40.6
+          		c-43.2,0-81.3-21.5-104.6-54.5c28.9,64,72.9,99.9,141.6,104c0.9,0,1.7,0.1,2.5,0.1h0l0,0c4.9,0.2,9.9,0.4,15,0.4
+          		c19.2,0,39.2-3.5,58.8-9.9c36.2-11.7,71.6-33.1,100.6-60.1c0-0.1,0.1-0.2,0.2-0.3L605.5,356.7z"/>
+	
+          		<linearGradient id="preloadSVGID_7_" gradientUnits="userSpaceOnUse" x1="257.3638" y1="663.0291" x2="317.3383" y2="339.8065" gradientTransform="matrix(1 0 0 -1 0 841.8898)">
+          		<stop  offset="0" style="stop-color:#B4371B"/>
+          		<stop  offset="0.1932" style="stop-color:#E18D2B"/>
+          		<stop  offset="0.3253" style="stop-color:#FDC435"/>
+          		<stop  offset="0.3895" style="stop-color:#F1AD31"/>
+          		<stop  offset="0.5255" style="stop-color:#DB8329"/>
+          		<stop  offset="0.6578" style="stop-color:#CA6223"/>
+          		<stop  offset="0.7838" style="stop-color:#BE4A1F"/>
+          		<stop  offset="0.9008" style="stop-color:#B73C1C"/>
+          		<stop  offset="1" style="stop-color:#B4371B"/>
+          	</linearGradient>
+          	<path class="st5" d="M308.8,178.6c-9.5,16.8-46.1,86.4-27,176.4c19.1,90.4,81.3,139.2,96.8,150.7c-23-7.5-68.9-26-107.2-70.8
+          		c-19.6-23-31.4-46-38.5-63.6c-3.7-14.9-14.1-63.9,10.4-117.5C263,210.7,295,187.5,308.8,178.6z"/>
+          </g>
+          <g id="Texte">
+          	<g class="st6 word-central">
+          		<path class="st7" d="M183.9,634v35.2c-10.4,3.8-19,5.7-25.7,5.7c-17.8,0-32.6-5.7-44.3-17.2c-5.5-5.5-9.8-11.9-12.8-19.3
+          			c-3-7.4-4.5-14.8-4.5-22.4c0-7.9,1.6-15.6,4.7-23c3.1-7.4,7.3-13.8,12.6-19.2c11.7-11.9,26.1-17.8,43.2-17.8
+          			c8.2,0,17.2,1.9,26.8,5.8v35.5c-6.8-8.3-15.4-12.5-25.9-12.5c-8.1,0-15,2.5-20.6,7.5c-6.6,6.2-10,14-10,23.5
+          			c0,9,3.1,16.5,9.3,22.3c5.6,5.3,12.7,7.9,21.3,7.9C167.9,646,176.6,642,183.9,634z"/>
+          		<path class="st7" d="M267.8,557.8v25.2h-35.3v19h33.5v25.2h-33.5v19.7h35.3v25.2h-65V557.8H267.8z"/>
+          		<path class="st7" d="M316.3,672.3h-29.7V557.8h29.7l54.7,70v-70h29.7v114.4h-29.7l-54.7-70V672.3z"/>
+          		<path class="st7" d="M492.4,583.1H468v89.2h-29.7v-89.2H414v-25.2h78.4V583.1z"/>
+          		<path class="st7" d="M505.6,557.8h46.3c12.1,0,21.4,3.4,28,10.1c6.5,6.6,9.8,15.2,9.8,25.7c0,10.1-3,18-9.1,23.8
+          			c-4.2,4-9.5,6.6-15.8,7.9l35.9,46.8h-36.9l-28.5-43.9v43.9h-29.7V557.8z M535.3,580.8v28.3h5.7c6.4,0,11.2-1.5,14.4-4.6
+          			c2.5-2.5,3.8-5.7,3.8-9.6c0-4-1.3-7.2-3.9-9.6c-3-3-7.7-4.5-14.2-4.5H535.3z"/>
+          		<path class="st7" d="M690,672.3l-7-19.2h-41.5l-7.7,19.2h-31.4l43.9-114.4h32.4l43.1,114.4H690z M649.7,630.4h25.4l-12.9-37.1
+          			L649.7,630.4z"/>
+          		<path class="st7" d="M735,557.8h29.7v89.2h35.7v25.2H735V557.8z"/>
+          	</g>
+          	<g class="st6 word-browser">
+          		<path class="st8" d="M253.8,709.2h9.5c4.3,0,7.8,0.3,10.4,0.8c2.6,0.5,5,1.5,7,3c3.3,2.4,5,5.6,5,9.6c0,2.3-0.6,4.2-1.9,5.8
+          			c-1.1,1.5-2.7,2.6-4.7,3.3c3.3,0.6,6,1.8,8.1,3.5c2.8,2.2,4.2,5.3,4.2,9.1c0,3.5-1.4,6.5-4.2,8.7c-3.9,3.2-9.8,4.7-17.7,4.7h-15.8
+          			V709.2z M263.4,716.1V730h2.9c3.5,0,6.1-0.6,7.8-1.9c1.6-1.2,2.5-3.1,2.5-5.5c0-2-0.8-3.5-2.3-4.7c-1.6-1.2-4.2-1.8-7.7-1.8H263.4
+          			z M263.4,736.2v14.6h5.9c4.3,0,7.5-0.6,9.5-1.9c2.1-1.3,3.1-3.1,3.1-5.4c0-2.1-0.9-3.8-2.6-5.1c-2-1.5-5.3-2.2-9.9-2.2H263.4z"/>
+          		<path class="st8" d="M303.5,709.2h11.3c7.4,0,13,0.9,16.6,2.8c5,2.6,7.5,6.4,7.5,11.4c0,3.4-1.3,6.4-3.8,8.8
+          			c-2.6,2.4-5.9,4-10.2,4.7l19.7,20.7h-11.6l-18.1-19.9h-1.7v19.9h-9.6V709.2z M313.1,716v15.4h3c0.8,0,1.6,0,2.5-0.1
+          			c0.8,0,1.9-0.2,3.4-0.5c1.4-0.3,2.6-0.7,3.7-1.2s2-1.3,2.7-2.4c0.8-1.1,1.2-2.3,1.2-3.8c0-5-4.4-7.5-13.1-7.5H313.1z"/>
+          		<path class="st8" d="M360.3,715.5c6.2-4.8,14.1-7.2,23.4-7.2c9.4,0,17.2,2.4,23.4,7.2c6.2,4.8,9.4,10.8,9.4,18s-3.1,13.2-9.4,18
+          			c-6.2,4.8-14.1,7.2-23.4,7.2c-9.4,0-17.2-2.4-23.4-7.2c-6.2-4.8-9.4-10.8-9.4-18S354.1,720.3,360.3,715.5z M367.1,746.7
+          			c4.3,3.4,9.9,5.1,16.6,5.1c6.7,0,12.3-1.7,16.6-5.1c4.3-3.4,6.5-7.8,6.5-13.2c0-5.4-2.2-9.8-6.5-13.2c-4.3-3.4-9.9-5.1-16.6-5.1
+          			c-6.7,0-12.3,1.7-16.6,5.1c-4.3,3.4-6.5,7.8-6.5,13.2C360.6,738.9,362.8,743.3,367.1,746.7z"/>
+          		<path class="st8" d="M419.6,709.2H430l16.6,32.5l17-34.8l16.5,34.8l17.2-32.5h10.4l-28.2,51.7l-16.5-34.4l-16.6,34.4L419.6,709.2z
+          			"/>
+          		<path class="st8" d="M548.7,716.4l-7.8,3.5c-0.6-1.2-1.6-2.2-2.8-3.1c-1.9-1.2-4.2-1.7-6.8-1.7c-2.8,0-5,0.6-6.6,1.7
+          			c-1.5,1.1-2.3,2.5-2.3,4.2c0,2.5,2.3,4.5,6.8,5.9l6.3,2c9.9,3.1,14.8,7.9,14.8,14.3c0,4.6-1.9,8.4-5.7,11.2
+          			c-3.8,2.9-8.7,4.3-14.6,4.3c-6.1,0-11.1-1.6-14.8-4.9c-3.1-2.7-4.9-5.8-5.3-9.5l9.5-1.6c0,2.3,0.9,4.4,2.6,6.2
+          			c2,1.9,4.8,2.9,8.2,2.9c3,0,5.4-0.8,7.4-2.3c2-1.5,3-3.5,3-5.9c0-2.2-0.8-4-2.5-5.2c-1.7-1.2-3.9-2.3-6.6-3.1l-6.1-2
+          			c-8.6-2.8-12.9-6.9-12.9-12.3c0-3.5,1.7-6.5,5-9c3.3-2.5,7.8-3.8,13.5-3.8c5.1,0,9.3,1.1,12.7,3.3
+          			C545.9,712.9,547.5,714.5,548.7,716.4z"/>
+          		<path class="st8" d="M597.3,709.2v7h-25.1v12.3h24.4v7h-24.4v15.3h25.1v7h-34.8v-48.6H597.3z"/>
+          		<path class="st8" d="M609.8,709.2h11.3c7.4,0,13,0.9,16.6,2.8c5,2.6,7.5,6.4,7.5,11.4c0,3.4-1.3,6.4-3.8,8.8
+          			c-2.6,2.4-5.9,4-10.2,4.7l19.7,20.7h-11.6l-18.1-19.9h-1.7v19.9h-9.6V709.2z M619.5,716v15.4h3c0.8,0,1.6,0,2.5-0.1
+          			c0.8,0,1.9-0.2,3.4-0.5c1.4-0.3,2.6-0.7,3.7-1.2s2-1.3,2.7-2.4c0.8-1.1,1.2-2.3,1.2-3.8c0-5-4.4-7.5-13.1-7.5H619.5z"/>
+          	</g>
+          </g>
+          <g id="Trait">
+          	<path class="st7" d="M135.1,736.1c33.3-0.8,66.6-2.5,99.4-2c2.1,4.5,0.8,6.1-2.4,6.5c-2.1,0.2-4.2,0.2-6.3,0.1
+          		c-27.9-0.6-55.7-1.2-83.6-1.8c-2.4,0-4.8-0.5-7.2-0.7C135.1,737.5,135.1,736.8,135.1,736.1z"/>
+          	<path class="st7" d="M765.3,736.1c-33.3-0.8-66.6-2.5-99.4-2c-2.1,4.5-0.8,6.1,2.4,6.5c2.1,0.2,4.2,0.2,6.3,0.1
+          		c27.9-0.6,55.7-1.2,83.6-1.8c2.4,0,4.8-0.5,7.2-0.7C765.4,737.5,765.4,736.8,765.3,736.1z"/>
+          </g>
+          </svg>
+        </div>
+      </div>
+
+      <div id="app">
+
+        <!-- Barre d'onglets + contrôles de fenêtre (tout-en-un, façon Chrome) -->
+        <div id="tabbar">
+          <div id="incognito-badge" class="hidden"><i class="fa-solid fa-user-secret"></i> Navigation privée</div>
+
+          <div id="tabs-region">
+            <div id="tabs"></div>
+            <button id="new-tab-btn" title="Nouvel onglet (Ctrl+T)">+</button>
+          </div>
+
+          <div id="window-controls">
+            <button id="win-min" class="win-btn" title="Réduire"><i class="fa-solid fa-window-minimize"></i></button>
+            <button id="win-max" class="win-btn" title="Agrandir"><i class="fa-regular fa-window-maximize"></i></button>
+            <button id="win-close" class="win-btn win-btn-close" title="Fermer"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+
+        <!-- Barre d'outils : navigation + adresse -->
+        <div id="toolbar">
+          <button class="tool-btn" id="back-btn" title="Précédent"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="tool-btn" id="forward-btn" title="Suivant"><i class="fa-solid fa-arrow-right"></i></button>
+          <button class="tool-btn" id="reload-btn" title="Actualiser (Ctrl+R)"><i class="fa-solid fa-arrow-rotate-right"></i></button>
+          <button class="tool-btn" id="home-btn" title="Page d'accueil"><i class="fa-regular fa-house"></i></button>
+
+          <div id="address-bar-container">
+            <span id="site-icon"><i class="fa-solid fa-lock"></i></span>
+            <input id="address-bar" type="text" placeholder="Rechercher sur Google ou saisir une adresse" autocomplete="off" />
+            <button id="star-btn" title="Ajouter aux favoris"><i class="fa-regular fa-star"></i></button>
+            <div id="extension-icons"></div>
+            <button id="extensions-btn" title="Extensions"><i class="fa-solid fa-puzzle-piece"></i></button>
+          </div>
+
+          <!-- Menu flottant des extensions -->
+          <div id="extensions-dropdown" class="hidden">
+            <div class="ext-dropdown-title">Extensions</div>
+            <div id="extensions-dropdown-list"></div>
+            <div id="extensions-dropdown-empty" class="hidden">Aucune extension installée</div>
+            <button id="extensions-view-all-btn">Gérer les extensions <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+
+          <button class="tool-btn" id="translate-btn" title="Traduire la page"><i class="fa-solid fa-language"></i></button>
+          <button class="tool-btn" id="find-btn" title="Rechercher dans la page (Ctrl+F)"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button class="tool-btn" id="download-quick-btn" title="Téléchargement"><i class="fa-solid fa-download"></i></button>
+          <button class="tool-btn" id="account-btn" title="Compte Google"><i class="fa-solid fa-circle-user"></i></button>
+          <button class="tool-btn" id="menu-btn" title="Menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
+
+        <!-- Barre des favoris -->
+        <div id="bookmarks-bar"></div>
+
+        <!-- Barre de recherche dans la page -->
+        <div id="find-bar" class="hidden">
+          <input id="find-input" type="text" placeholder="Rechercher dans la page" />
+          <span id="find-results">0/0</span>
+          <button class="tool-btn" id="find-prev" title="Précédent"><i class="fa-solid fa-arrow-up"></i></button>
+          <button class="tool-btn" id="find-next" title="Suivant"><i class="fa-solid fa-arrow-down"></i></button>
+          <button class="tool-btn" id="find-close" title="Fermer"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Barre de traduction (style Chrome) -->
+        <div id="translate-dropdown" class="hidden">
+          <div class="translate-toprow">
+            <i class="fa-solid fa-language translate-globe-icon"></i>
+            <div class="translate-sentence">
+              Traduit en
+              <div class="translate-select-wrap">
+                <button id="translate-lang-select-btn" class="translate-lang-pill" type="button">
+                  <span id="translate-current-lang-label">Français</span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div id="translate-lang-menu" class="hidden">
+            <button data-lang="fr">Français</button>
+            <button data-lang="en">Anglais</button>
+            <button data-lang="es">Espagnol</button>
+            <button data-lang="pt">Portugais</button>
+            <button data-lang="ar">Arabe</button>
+            <button data-lang="de">Allemand</button>
+                </div>
+              </div>
+            </div>
+            <button id="translate-close-btn" class="translate-close-btn" title="Fermer"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div id="translate-status"></div>
+          <button id="translate-revert-btn" class="hidden">Afficher la page originale</button>
+        </div>
+
+        <!-- Menu déroulant (les 3 points) -->
+        <div id="menu-dropdown" class="hidden">
+          <button data-action="new-tab">
+            <span><i class="fa-regular fa-folder-closed"></i> Nouvel onglet</span>
+            <span>Ctrl+T</span>
+          </button>
+          <button data-action="new-window">
+            <span><i class="fa-regular fa-window-restore"></i> Nouvelle fenêtre</span>
+            <span>Ctrl+N</span>
+          </button>
+          <button data-action="new-incognito">
+            <span><i class="fa-solid fa-user-shield"></i> Navigation privée</span>
+            <span>Ctrl+Shift+N</span>
+          </button>
+          <button data-action="open-file"><span><i class="fa-regular fa-file"></i> Ouvrir un fichier…</span><span>Ctrl+O</span></button>
+          <div class="menu-sep"></div>
+          <button data-action="history">
+            <span><i class="fa-solid fa-clock-rotate-left"></i> Historique</span>
+            <span>Ctrl+H</span>
+          </button>
+          <button data-action="downloads">
+            <span><i class="fa-solid fa-download"></i> Téléchargements</span>
+            <span>Ctrl+J</span>
+          </button>
+          <button data-action="bookmarks">
+            <span><i class="fa-regular fa-bookmark"></i> Favoris</span>
+            <span>Ctrl+Shift+O</span>
+          </button>
+          <button data-action="cookies">
+            <span><i class="fa-solid fa-cookie-bite"></i> Gestion des cookies</span>
+            <span>Ctrl+K</span>
+          </button>
+          <button data-action="extensions">
+            <span><i class="fa-solid fa-puzzle-piece"></i> Extensions</span>
+          </button>
+          <div class="menu-sep"></div>
+          <div id="zoom_div">
+              <span><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom</span>
+              <div>
+                  <button data-action="zoom-out"><i class="fa-solid fa-minus"></i></button>
+                  <span id="zoom-level-label">100%</span>
+                  <button data-action="zoom-in"><i class="fa-solid fa-plus"></i></button>
+                  <button data-action="fullscreen" title="Plein écran"><i class="fa-solid fa-expand"></i></button>
+              </div>
+          </div>
+          <div class="menu-sep"></div>
+          <button data-action="print">
+            <span><i class="fa-solid fa-print"></i> Imprimer</span>
+            <span>Ctrl+P</span>
+          </button>
+          <button data-action="settings">
+            <span><i class="fa-solid fa-gear"></i> Paramètres</span>
+            <span>Ctrl+S</span>
+          </button>
+          <div class="menu-sep"></div>
+          <button data-action="applications">
+            <span><i class="fa-brands fa-microsoft"></i> Applications</span>
+            <span>Ctrl+B</span>
+          </button>
+          <div class="menu-sep"></div>
+          <button data-action="quit">
+            <span><i class="fa-solid fa-right-from-bracket"></i> Quitter</span>
+            <span>Alt+F4</span>
+          </button>
+        </div>
+
+        <div id="app-menu-div" class="hidden">
+            <div id="app-menu" class="hidden">
+                <button id="close-app-btn" data-action="close-apps"><i class="fa-solid fa-xmark"></i></button>
+                <button class="app-list" data-action="lecteur-audio">
+                    <img src="medias/images/lecteur_audio.png" alt="image lecteur audio">
+                    <span>Lecteur audio</span>
+                </button>
+                <button class="app-list" data-action="lecteur-video">
+                    <img src="medias/images/lecteur_v.png" alt="image lecteur video">
+                    <span>Lecteur vidéo</span>
+                </button>
+                <button class="app-list" data-action="gestion-pdf">
+                    <img src="medias/images/lecteur_pdf.png" alt="image lecteur pdf">
+                    <span>Gestionnaire PDF</span>
+                </button>
+                <button class="app-list" data-action="transfert-fichiers">
+                    <img src="medias/images/transfert_fichiers.svg" alt="image transfert de fichiers">
+                    <span>Transfert de fichiers</span>
+                </button>
+                <button class="app-list" data-action="devtools">
+                    <img src="medias/images/devtools_img.png" alt="image devtools">
+                    <span>Outils de développement</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu compte Google -->
+        <div id="account-dropdown" class="hidden">
+          <div id="account-status">Non connecté</div>
+          <button id="account-connect-btn">Se connecter à Google</button>
+          <button id="account-disconnect-btn" class="hidden">Se déconnecter</button>
+          <div id="account-sync-quick" class="hidden">
+            <button id="account-sync-now-btn"><i class="fa-solid fa-rotate"></i> Synchroniser maintenant</button>
+            <div id="account-sync-last"></div>
+          </div>
+        </div>
+
+        <!-- Panneau Historique -->
+        <div id="history-panel" class="side-panel hidden">
+          <div class="panel-header">
+            <span>Historique</span>
+            <button class="panel-close" data-panel="history-panel"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="panel-toolbar">
+            <input id="history-search" type="text" placeholder="Rechercher dans l'historique" />
+            <select id="history-filter">
+              <option value="all">Toutes les périodes</option>
+              <option value="today">Aujourd'hui</option>
+              <option value="yesterday">Hier</option>
+              <option value="week">Cette semaine</option>
+              <option value="older">Plus ancien</option>
+            </select>
+          </div>
+          <div id="history-list"></div>
+          <div class="panel-footer">
+            <button id="history-clear-btn">Effacer l'historique</button>
+            <button id="history-all-btn">Voir historique complet</button>
+          </div>
+        </div>
+
+        <!-- Panneau Favoris -->
+        <div id="bookmarks-panel" class="side-panel hidden">
+          <div class="panel-header">
+            <span>Favoris</span>
+            <button class="panel-close" data-panel="bookmarks-panel"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="panel-toolbar">
+            <input id="bookmarks-search" type="text" placeholder="Rechercher dans les favoris" />
+          </div>
+          <div id="bookmarks-list"></div>
+        </div>
+
+        <!-- Panneau Téléchargements -->
+        <div id="downloads-panel" class="side-panel hidden">
+          <div class="panel-header">
+            <span>Téléchargements</span>
+            <button class="panel-close" data-panel="downloads-panel"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div id="downloads-list"></div>
+          <div class="panel-footer">
+            <button id="downloads-clear-btn">Effacer la liste</button>
+          </div>
+        </div>
+
+        <!-- Panneau Cookies -->
+        <div id="cookies-panel" class="side-panel hidden">
+          <div class="panel-header">
+            <span>Gestion des cookies</span>
+            <button class="panel-close" data-panel="cookies-panel"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="panel-toolbar">
+            <input id="cookies-search" type="text" placeholder="Rechercher un domaine" />
+            <label class="cookie-toggle-row">
+              <input type="checkbox" id="block-third-party-cookies" />
+              Bloquer les cookies tiers
+            </label>
+          </div>
+          <div id="cookies-list"></div>
+          <div class="panel-footer">
+            <button id="cookies-clear-all-btn">Effacer tous les cookies</button>
+          </div>
+        </div>
+
+        <div id="panel-overlay" class="hidden"></div>
+
+        <!-- Aperçu au survol d'un onglet (Paramètres > Apparence) -->
+        <div id="tab-hover-preview" class="hidden">
+          <div class="thp-thumb"></div>
+          <div class="thp-title"></div>
+          <div class="thp-url"></div>
+        </div>
+
+        <!-- Conteneur des webviews (une par onglet) -->
+        <div id="webviews"></div>
+
+        <!-- ============================================================
+             Bloc-notes flottant
+             ============================================================
+             Toujours accessible par-dessus les onglets (élément du chrome
+             de la fenêtre, pas du contenu d'un onglet) : bulle repliée +
+             panneau déplié, glisser-déposer texte/liens/images/vidéos.
+             Voir renderer/floating-notepad.js.
+             ============================================================ -->
+        <div id="fnp-bubble" class="hidden" title="Bloc-notes (glisser-déposer texte, liens, images, vidéos)">
+          <i class="fa-regular fa-note-sticky"></i>
+          <span id="fnp-bubble-count" class="fnp-bubble-count hidden">0</span>
+        </div>
+
+        <div id="fnp-panel" class="hidden">
+          <div id="fnp-header">
+            <i class="fa-regular fa-note-sticky"></i>
+            <span>Bloc-notes</span>
+            <button id="fnp-clear-btn" title="Effacer tout le bloc-notes"><i class="fa-solid fa-trash"></i></button>
+            <button id="fnp-collapse-btn" title="Réduire"><i class="fa-solid fa-minus"></i></button>
+          </div>
+          <div id="fnp-compose">
+            <textarea id="fnp-compose-input" placeholder="Écrire une note rapide…" rows="2"></textarea>
+            <button id="fnp-compose-add-btn" title="Ajouter la note"><i class="fa-solid fa-plus"></i></button>
+          </div>
+          <div id="fnp-dropzone">
+            <div id="fnp-list"></div>
+            <div id="fnp-empty">
+              <i class="fa-regular fa-note-sticky"></i>
+              <p>Glisse ici du texte, un lien, une image, une capture ou une vidéo depuis n'importe quel onglet.</p>
+            </div>
+            <div id="fnp-drag-hint" class="hidden"><i class="fa-solid fa-arrow-down"></i> Dépose ici</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!--
+        renderer.js a été décomposé en modules (dossier renderer/), un par
+        responsabilité (voir renderer/README.md). Ce sont des scripts
+        classiques (pas des modules ES) qui partagent le même scope global,
+        exactement comme l'unique renderer.js d'origine : l'ORDRE ci-dessous
+        est important et reproduit l'ordre de dépendance entre modules.
+      -->
+      <script src="preloader.js"></script>
+      <script src="renderer/dom-state.js"></script>
+      <script src="renderer/utils.js"></script>
+      <script src="renderer/theme.js"></script>
+      <script src="renderer/window-controls.js"></script>
+      <script src="renderer/tabs.js"></script>
+      <script src="renderer/toolbar-zoom.js"></script>
+      <script src="renderer/toolbar-navigation.js"></script>
+      <script src="renderer/bookmarks.js"></script>
+      <script src="renderer/find-in-page.js"></script>
+      <script src="renderer/translate.js"></script>
+      <script src="renderer/app-menu.js"></script>
+      <script src="renderer/account.js"></script>
+      <script src="renderer/extensions-widget.js"></script>
+      <script src="renderer/panels-toast.js"></script>
+      <script src="renderer/history.js"></script>
+      <script src="renderer/history-page.js"></script>
+      <script src="renderer/internal-page-stub.js"></script>
+      <script src="renderer/downloads.js"></script>
+      <script src="renderer/downloads-page.js"></script>
+      <script src="renderer/cookies.js"></script>
+      <script src="renderer/settings-page.js"></script>
+      <script src="renderer/extensions-page.js"></script>
+      <script src="renderer/start-page.js"></script>
+      <script src="renderer/floating-notepad.js"></script>
+      <script src="renderer/keyboard-shortcuts.js"></script>
+      <script src="renderer/init.js"></script>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <title>Lecteur Vidéo</title>
+
+        <link rel="stylesheet" href="video-player.css">
+        <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+
+    </head>
+
+    <body>
+
+    <div id="app">
+
+        <div id="sidebar">
+
+            <div id="sidebar-tabs">
+                <button class="tab-btn active" data-tab="playlist">Playlist</button>
+                <button class="tab-btn" data-tab="history">Historique</button>
+            </div>
+
+            <div id="playlist-panel" class="tab-panel active">
+
+                <div class="panel-actions">
+                    <button id="addFiles"><i class="fa-solid fa-plus"></i> Ajouter</button>
+                    <button id="loadFolder"><i class="fa-solid fa-folder-open"></i> Dossier</button>
+                    <button id="clearPlaylist"><i class="fa-solid fa-trash-can"></i> Vider</button>
+                </div>
+
+                <ul id="playlist-list"></ul>
+
+                <p id="playlist-empty" class="empty-hint hidden">Playlist vide. Ajoute des vidéos pour commencer.</p>
+
+            </div>
+
+            <div id="history-panel" class="tab-panel">
+
+                <div class="panel-actions">
+                    <button id="clearHistory"><i class="fa-solid fa-trash-can"></i> Effacer l'historique</button>
+                </div>
+
+                <ul id="history-list"></ul>
+
+                <p id="history-empty" class="empty-hint hidden">Aucun historique de lecture pour le moment.</p>
+
+            </div>
+
+        </div>
+
+        <div id="main">
+
+            <video id="video"></video>
+
+            <div id="empty-state">
+                <p>Glissez-déposez une ou plusieurs vidéos (ou un dossier complet) ici</p>
+                <button id="openFile">📂 Ouvrir un fichier</button>
+                <button id="loadFolderEmpty">📁 Charger un dossier</button>
+            </div>
+
+            <div id="converting-overlay" class="hidden">
+                <div class="spinner"></div>
+                <p>Conversion du fichier en cours…</p>
+            </div>
+
+            <div id="resume-toast" class="hidden"></div>
+
+            <div id="topbar">
+                <button id="sidebarToggle" title="Playlist">☰</button>
+                <span id="filename"></span>
+                <button id="openFileTop" title="Ouvrir un fichier">📂</button>
+            </div>
+
+            <div id="controls">
+                <button id="prevBtn"><i class="fa-solid fa-backward-fast"></i>30</button>
+                <button id="back10" title="Reculer de 10s"><i class="fa-solid fa-backward"></i>10</button>
+
+                <button id="playPause"><i class="fa-solid fa-play"></i></button>
+
+                <button id="forward10" title="Avancer de 10s">10<i class="fa-solid fa-forward"></i></button>
+                <button id="nextBtn"><i class="fa-solid fa-forward-fast"></i></button>
+
+                <button id="stop"><i class="fa-solid fa-stop"></i></button>
+
+                <span id="currentTime">00:00</span>
+
+                <input
+                    id="progress"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0">
+
+                <span id="duration">00:00</span>
+
+                <button id="mute" title="Muet"><i class="fa-solid fa-volume"></i></button>
+
+                <input
+                    id="volume"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="100">
+
+                <select id="speed" title="Vitesse de lecture">
+
+                    <option value="0.25">0.25x</option>
+                    <option value="0.5">0.5x</option>
+                    <option value="0.75">0.75x</option>
+                    <option value="1" selected>1x</option>
+                    <option value="1.25">1.25x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+
+                </select>
+
+                <button id="autoplayNext" title="Lecture automatique de la suivante" class="active"><i class="fa-solid fa-link"></i></button>
+
+                <button id="repeat" title="Répéter"><i class="fa-solid fa-repeat"></i></button>
+
+                <button id="pip" title="Image dans l'image"><i class="fa-solid fa-picture-in-picture"></i></button>
+
+                <button id="fullscreen" title="Plein écran"><i class="fa-solid fa-expand"></i></button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="video-player.js"></script>
+
+    </body>
+
+</html>

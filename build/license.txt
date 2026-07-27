@@ -1,0 +1,39 @@
+CONTRAT DE LICENCE UTILISATEUR FINAL — CENTRAL BROWSER
+
+Merci d'installer Central Browser. Avant de poursuivre, veuillez lire
+attentivement les conditions suivantes. En cliquant sur "J'accepte" (ou
+"I Agree"), vous acceptez d'être lié par les termes de ce contrat.
+
+1. LICENCE D'UTILISATION
+Le présent logiciel vous est fourni pour un usage personnel ou
+professionnel, sous réserve du respect des présentes conditions.
+Vous n'êtes pas autorisé à revendre, redistribuer ou modifier le
+logiciel sans autorisation écrite préalable de l'éditeur.
+
+2. PROPRIÉTÉ INTELLECTUELLE
+Le logiciel, son code source, son interface et sa documentation
+demeurent la propriété exclusive de l'éditeur. Aucune disposition du
+présent contrat ne vous transfère un quelconque droit de propriété.
+
+3. DONNÉES ET CONFIDENTIALITÉ
+Certaines fonctionnalités (historique de navigation, mots de passe,
+favoris, transfert de fichiers) stockent des données localement sur
+votre appareil. Consultez la politique de confidentialité de l'éditeur
+pour plus de détails sur le traitement de ces données.
+
+4. LOGICIELS TIERS
+Ce logiciel intègre ou s'appuie sur des composants tiers open source
+(notamment Electron, pdf-lib, sharp, ffmpeg) distribués sous leurs
+propres licences respectives.
+
+5. ABSENCE DE GARANTIE
+Le logiciel est fourni "en l'état", sans garantie d'aucune sorte,
+expresse ou implicite. L'éditeur ne pourra être tenu responsable des
+dommages directs ou indirects résultant de l'utilisation du logiciel.
+
+6. ACCEPTATION
+L'installation du logiciel vaut acceptation pleine et entière des
+termes du présent contrat. Si vous n'acceptez pas ces conditions,
+veuillez annuler l'installation.
+
+© Central Browser — Tous droits réservés.

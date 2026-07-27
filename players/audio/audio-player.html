@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <title>Lecteur Audio</title>
+
+        <link rel="stylesheet" href="audio-player.css">
+        <link rel="stylesheet" href="../../fontawesome/css/all.min.css">
+
+    </head>
+
+    <body>
+
+        <div id="app">
+
+                <div id="sidebar">
+
+                    <div id="sidebar-tabs">
+                        <button class="tab-btn active" data-tab="playlist">Playlist</button>
+                        <button class="tab-btn" data-tab="history">Historique</button>
+                    </div>
+
+                    <div id="playlist-panel" class="tab-panel active">
+
+                        <div class="panel-actions">
+                            <button id="addFiles"><i class="fa-solid fa-plus"></i> Ajouter</button>
+                            <button id="loadFolder"><i class="fa-solid fa-folder-open"></i> Dossier</button>
+                            <button id="clearPlaylist"><i class="fa-solid fa-trash-can"></i> Vider</button>
+                        </div>
+
+                        <ul id="playlist-list"></ul>
+
+                        <p id="playlist-empty" class="empty-hint hidden">Playlist vide. Ajoute des morceaux pour commencer.</p>
+
+                    </div>
+
+                    <div id="history-panel" class="tab-panel">
+
+                        <div class="panel-actions">
+                            <button id="clearHistory"><i class="fa-solid fa-trash-can"></i> Effacer l'historique</button>
+                        </div>
+
+                        <ul id="history-list"></ul>
+
+                        <p id="history-empty" class="empty-hint hidden">Aucun historique de lecture pour le moment.</p>
+
+                    </div>
+
+                </div>
+                <div id="main"> 
+
+                    <audio id="audio"></audio>
+
+                    <button id="sidebarToggle" title="Playlist">☰</button>
+
+                    <div id="now-playing">
+
+                        <div id="cover">🎵</div>
+
+                        <div id="filename">Aucun fichier chargé</div>
+
+                        <div id="empty-actions">
+                            <button id="openFile">📂 Ouvrir un fichier</button>
+                            <button id="loadFolderEmpty">📁 Charger un dossier</button>
+                            <p class="hint">ou glissez-déposez un ou plusieurs fichiers audio (ou un dossier complet) ici</p>
+                        </div>
+
+                        <div id="controls">
+
+                            <div id="progress-row">
+                                <span id="currentTime">00:00</span>
+                                <input id="progress" type="range" min="0" max="100" value="0">
+                                <span id="duration">00:00</span> 
+                            </div>
+
+                            <div id="buttons-row">
+                                <button id="prevBtn" title="Précédent"><i class="fa-solid fa-backward-fast"></i></button>
+                                <button id="back5" title="Reculer de 5s"><i class="fa-solid fa-backward"></i>5</button>
+                                <button id="playPause" title="Lecture / Pause"><i class="fa-solid fa-play"></i></button>
+                                <button id="stop" title="Arrêter"><i class="fa-solid fa-stop"></i></button>
+                                <button id="forward5" title="Avancer de 5s">5<i class="fa-solid fa-forward"></i></button>
+                                <button id="nextBtn"><i class="fa-solid fa-forward-fast"></i></button>
+                                <button id="repeat" title="Répéter"><i class="fa-solid fa-repeat"></i></button>
+                                <button id="mute" title="Muet"><i class="fa-solid fa-volume"></i></button>
+                                <input id="volume" type="range" min="0" max="100" value="100">
+
+                                <select id="speed" title="Vitesse de lecture">
+                                    <option value="0.25">0.25x</option>
+                                    <option value="0.5">0.5x</option>
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1" selected>1x</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2x</option>
+                                </select>
+
+                                <button id="autoplayNext" title="Lecture automatique de la suivante" class="active">🔗</button>
+
+                                <button id="openFileBottom" title="Ouvrir un fichier">📂</button>
+                            </div>
+
+                            <div id="bottom-row">
+                                
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+        </div>
+
+        <script src="audio-player.js"></script>
+
+    </body>
+
+</html>
