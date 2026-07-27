@@ -48,7 +48,7 @@ menuDropdown.addEventListener('click', (e) => {
     case 'new-incognito': api.newIncognitoWindow(); break;
     case 'open-file': openLocalFile(); break;
     case 'history': openPanel('history-panel'); renderHistoryPreview(); break;
-    case 'downloads': openPanel('downloads-panel'); renderDownloads(); break;
+    case 'downloads': openDownloadsTab(); break;
     case 'bookmarks': openPanel('bookmarks-panel'); renderBookmarksPanel(); break;
     case 'cookies': openPanel('cookies-panel'); renderCookiesPanel(); break;
     case 'zoom-in': zoomBy(0.5); break;
@@ -57,7 +57,7 @@ menuDropdown.addEventListener('click', (e) => {
     case 'print': api.print(); break;
     case 'settings': openSettingsTab(); break;
     case 'extensions': openExtensionsTab(); break;
-    case 'applications': openToast(); break;
+    case 'applications': openToast(); break; 
     case 'quit': api.quitApp(); break;
   }
 });
