@@ -236,4 +236,11 @@ contextBridge.exposeInMainWorld('browserAPI', {
     notepadSetUiState: (partial) => ipcRenderer.invoke('notepad:set-ui-state', partial),
     onNotepadUpdated: (cb) => ipcRenderer.on('notepad:updated', (_e, state) => cb(state)),
 
+
+    getAppVersion: () => ipcRenderer.invoke('app:get-version'),
+    getUpdateStatus: () => ipcRenderer.invoke('app:get-update-status'),
+    checkForUpdates: () => ipcRenderer.invoke('app:check-for-updates'),
+    installUpdate: () => ipcRenderer.invoke('app:install-update'),
+    onUpdateStatus: (cb) => ipcRenderer.on('update:status', (_e, status) => cb(status)),
+
 });
