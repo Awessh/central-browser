@@ -13,26 +13,7 @@
 // ============================================================
 
 const ABOUT_PAGE_TEMPLATE = `
-  <style>
-    /* Styles propres à browser://about — les feuilles styles.css /
-       styles-extra.css ne définissent rien pour cette page, donc tout est
-       scopé ici plutôt que d'ajouter des classes globales à l'aveugle. */
-    .about-card { max-width: 520px; }
-    .about-app-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-    .about-app-icon { font-size: 40px; opacity: 0.85; }
-    .about-app-name { margin: 0 0 4px 0; }
-    .about-app-version { opacity: 0.7; font-size: 13px; }
-    .about-update-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
-    .about-check-btn { width: auto; }
-    .about-check-btn:disabled { opacity: 0.6; cursor: default; }
-    .about-update-status { font-size: 13px; opacity: 0.85; }
-    .about-install-btn {
-      margin-top: 14px; border: none; border-radius: 6px; padding: 9px 16px;
-      cursor: pointer; font-size: 13px; background: #2f7de1; color: #fff;
-    }
-    .about-install-btn:hover { background: #2569c4; }
-    .about-install-btn.hidden { display: none; }
-  </style>
+
   <div class="spage-wrap">
     <div class="hpage-header">
       <h1><i class="fa-solid fa-circle-info"></i> À propos</h1>
