@@ -1,6 +1,6 @@
 {
   "name": "central-browser",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Navigateur web multi-fonction",
   "main": "main.js",
   "author": "Awesshhh",
@@ -31,6 +31,7 @@
         "provider": "github",
         "owner": "Awessh",
         "repo": "central-browser",
+        "releaseType": "release",
         "private": true
       }
     ],
